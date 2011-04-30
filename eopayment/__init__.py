@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import logging
+import os
+import sys
 
 from common import URL, HTML
 
@@ -42,7 +44,11 @@ class Payment(object):
 
     def __init__(self, kind, options):
         self.kind = kind
-        module = __import__(kind)
+        sys.path.append(os.path.dirname(__file__))
+        try:
+            module = __import__(kind)
+        finally:
+            sys.path.pop()
         self.backend = module.Payment(options)
 
     def request(self, amount, email=None, next_url=None):
