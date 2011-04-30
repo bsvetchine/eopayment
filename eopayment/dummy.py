@@ -19,7 +19,6 @@ class Payment(PaymentCommon):
     def request(self, amount, email=None, next_url=None):
         transaction_id = self.transaction_id(6, string.digits, 'dummy')
 
-        print 'next url:', next_url
         dest_url = 'http://perso.entrouvert.org/~fred/paiement/?return=%s&tid=%s&amount=%s' % (
                         urllib2.quote(next_url),
                         transaction_id,
