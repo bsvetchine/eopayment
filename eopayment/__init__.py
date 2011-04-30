@@ -8,6 +8,7 @@ from common import URL, HTML
 
 __all__ = [ 'Payment', 'URL', 'HTML' ]
 
+DUMMY = 'dummy'
 SIPS = 'sips'
 SYSTEMPAY = 'systempayv2'
 SPPLUS = 'spplus'
