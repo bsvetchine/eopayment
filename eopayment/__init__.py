@@ -44,7 +44,10 @@ class Payment(object):
 
     def __init__(self, kind, options):
         self.kind = kind
-        sys.path.append(os.path.dirname(__file__))
+        module_path = __file__
+        if not os.path.isdir(os.path.realpath(__file__)):
+            module_path = os.path.dirname(__file__)
+        sys.path.append(module_path)
         try:
             module = __import__(kind)
         finally:
