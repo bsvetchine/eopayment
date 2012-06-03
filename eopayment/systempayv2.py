@@ -254,33 +254,34 @@ class Payment(PaymentCommon):
         self.options = options
         self.logger = logger
 
-    def request(self, amount, name=None, email=None, telephone=None,
-            info1=None, info2=None, info3=None, next_url=None, **kwargs):
+    def request(self, amount, name=None, address=None, email=None, phone=None, info1=None,
+            info2=None, info3=None, next_url=None, **kwargs):
         '''
-           Create a dictionary to send a payment request to systempay the
-           Credit Card payment server of the NATIXIS group
+           Create the URL string to send a request to SystemPay
         '''
-        self.logger.debug('%s amount %s email %s next_url %s, kwargs: %s',
-                __name__, amount, email, next_url, kwargs)
+        self.logger.debug('%s amount %s name %s address %s email %s phone %s next_url %s info1 %s info2 %s info3 %s kwargs: %s',
+                __name__, amount, name, address, email, phone, info1, info2, info3, next_url, kwargs)
         # amount unit is cents
         amount = '%.0f' % (100 * amount)
         kwargs.update(add_vads({'amount': amount}))
         if amount < 0:
             raise ValueError('amount must be an integer >= 0')
-        if email is not None:
-            kwargs[VADS_CUST_EMAIL] = email
         if next_url:
             kwargs[VADS_URL_RETURN] = next_url
         if name is not None:
-            kwargs[VADS_CUST_NAME] = name
+            kwargs['vads_cust_name'] = name
+        if address is not None:
+            kwargs['vads_cust_address'] = address
+        if email is not None:
+            kwargs['vads_cust_email'] = email
         if phone is not None:
-            kwargs[VADS_CUST_PHONE] = phone
+            kwargs['vads_cust_phone'] = phone
         if info1 is not None:
-            kwargs[VADS_CUST_INFO1] = info1
+            kwargs['vads_order_info'] = info1
         if info2 is not None:
-            kwargs[VADS_CUST_INFO2] = info2
+            kwargs['vads_order_info2'] = info2
         if info3 is not None:
-            kwargs[VADS_CUST_INFO3] = info3
+            kwargs['vads_order_info3'] = info3
 
         transaction_id = self.transaction_id(6,
                 string.digits, 'systempay', self.options[VADS_SITE_ID])

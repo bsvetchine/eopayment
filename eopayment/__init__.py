@@ -69,7 +69,7 @@ class Payment(object):
         self.kind = kind
         self.backend = get_backend(kind)(options, logger=logger)
 
-    def request(self, amount, email=None, next_url=None):
+    def request(self, amount, **kwargs):
         '''Request a payment to the payment backend.
 
           Arguments:
@@ -100,7 +100,7 @@ class Payment(object):
                    # present the form in HTML to the user
 
         '''
-        return self.backend.request(amount, email=email, next_url=next_url)
+        return self.backend.request(amount, **kwargs)
 
     def response(self, query_string):
         '''
