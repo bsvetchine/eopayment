@@ -22,6 +22,11 @@ VADS_AUTH_RESULT = 'vads_auth_result'
 VADS_RESULT = 'vads_result'
 VADS_EXTRA_RESULT = 'vads_extra_result'
 VADS_CUST_EMAIL = 'vads_cust_email'
+VADS_CUST_NAME = 'vads_cust_name'
+VADS_CUST_PHONE = 'vads_cust_phone'
+VADS_CUST_INFO1 = 'vads_order_info'
+VADS_CUST_INFO2 = 'vads_order_info2'
+VADS_CUST_INFO3 = 'vads_order_info3'
 VADS_URL_RETURN = 'vads_url_return'
 VADS_AMOUNT = 'vads_amount'
 VADS_SITE_ID = 'vads_site_id'
@@ -249,7 +254,8 @@ class Payment(PaymentCommon):
         self.options = options
         self.logger = logger
 
-    def request(self, amount, email=None, next_url=None, **kwargs):
+    def request(self, amount, name=None, email=None, telephone=None,
+            info1=None, info2=None, info3=None, next_url=None, **kwargs):
         '''
            Create a dictionary to send a payment request to systempay the
            Credit Card payment server of the NATIXIS group
@@ -257,14 +263,24 @@ class Payment(PaymentCommon):
         self.logger.debug('%s amount %s email %s next_url %s, kwargs: %s',
                 __name__, amount, email, next_url, kwargs)
         # amount unit is cents
-        amount = 100 * amount
+        amount = '%.0f' % (100 * amount)
         kwargs.update(add_vads({'amount': amount}))
-        if Decimal(kwargs[VADS_AMOUNT]) < 0:
+        if amount < 0:
             raise ValueError('amount must be an integer >= 0')
-        if email:
+        if email is not None:
             kwargs[VADS_CUST_EMAIL] = email
         if next_url:
             kwargs[VADS_URL_RETURN] = next_url
+        if name is not None:
+            kwargs[VADS_CUST_NAME] = name
+        if phone is not None:
+            kwargs[VADS_CUST_PHONE] = phone
+        if info1 is not None:
+            kwargs[VADS_CUST_INFO1] = info1
+        if info2 is not None:
+            kwargs[VADS_CUST_INFO2] = info2
+        if info3 is not None:
+            kwargs[VADS_CUST_INFO3] = info3
 
         transaction_id = self.transaction_id(6,
                 string.digits, 'systempay', self.options[VADS_SITE_ID])
