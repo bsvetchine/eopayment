@@ -72,7 +72,8 @@ class PaymentCommon(object):
 
     def __init__(self, options, logger=LOGGER):
         logger.debug('initializing with options %s' % options)
-        for key, value in self.description['parameters'].iteritems():
+        for value in self.description['parameters']:
+            key = value['name']
             if 'default' in value:
                 setattr(self, key, options.get(key, None) or value['default'])
             else:
