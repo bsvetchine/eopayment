@@ -94,7 +94,7 @@ PARAMETERS = [
         Parameter('vads_cust_country', 'a', 22, length=2, default='FR'),
         Parameter('vads_cust_email', 'an@', 15, max_length=127),
         Parameter('vads_cust_id', 'an', 16, max_length=63),
-        Parameter('vads_cust_name', 'an', 18, max_length=127),
+        Parameter('vads_cust_name', 'ans', 18, max_length=127),
         Parameter('vads_cust_phone', 'an', 23, max_length=63),
         Parameter('vads_cust_title', 'an', 17, max_length=63),
         Parameter('vads_cust_city', 'an', 21, max_length=63),
