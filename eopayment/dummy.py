@@ -71,19 +71,24 @@ class Payment(PaymentCommon):
             ],
     }
 
-    def request(self, montant, email=None, next_url=None, logger=LOGGER):
+    def request(self, amount, name=None, address=None, email=None, phone=None,
+            info1=None, info2=None, info3=None, next_url=None, **kwargs):
+        self.logger.debug('%s amount %s name %s address %s email %s phone %s'
+                ' next_url %s info1 %s info2 %s info3 %s kwargs: %s',
+                __name__, amount, name, address, email, phone, info1, info2, info3, next_url, kwargs)
         transaction_id = self.transaction_id(30, ALPHANUM, 'dummy', self.siret)
         if self.next_url:
             next_url = self.next_url
         query = {
                 'transaction_id': transaction_id,
                 'siret': self.siret,
-                'amount': montant,
+                'amount': amount,
                 'email': email,
                 'return_url': next_url or '',
                 'direct_notification_url': self.direct_notification_url,
                 'origin': self.origin
         }
+        query.update(locals())
         url = '%s?%s' % (SERVICE_URL, urllib.urlencode(query))
         return transaction_id, URL, url
 
