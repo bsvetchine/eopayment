@@ -8,7 +8,7 @@ from common import URL, HTML
 __all__ = [ 'Payment', 'URL', 'HTML', '__version__', 'SIPS', 'SYSTEMPAY',
     'SPPLUS', 'DUMMY', 'get_backend' ]
 
-__version__ = "0.0.17"
+__version__ = "0.0.18"
 
 LOGGER = logging.getLogger(__name__)
 
