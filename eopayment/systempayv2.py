@@ -35,7 +35,7 @@ SIGNATURE = 'signature'
 VADS_TRANS_ID = 'vads_trans_id'
 
 def isonow():
-    return dt.datetime.now()  \
+    return dt.datetime.utcnow()  \
             .isoformat('T')   \
             .replace('-','')  \
             .replace('T','')  \
