@@ -6,7 +6,6 @@ import logging
 import string
 import urlparse
 import urllib
-from decimal import Decimal
 from gettext import gettext as _
 
 from common import PaymentCommon, PaymentResponse, URL, PAID, ERROR
