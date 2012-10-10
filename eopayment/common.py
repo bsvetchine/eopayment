@@ -17,6 +17,8 @@ HTML = 2
 RECEIVED = 1
 ACCEPTED = 2
 PAID = 3
+DENIED = 4
+CANCELED = 5
 ERROR = 99
 
 class PaymentResponse(object):
