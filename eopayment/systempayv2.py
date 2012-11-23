@@ -73,9 +73,6 @@ class Parameter:
             return value.replace('-','').isalnum()
         elif self.ptype == 'an;':
             return value.replace(';','').isalnum()
-        elif self.ptype == 'an@':
-            return value.replace('@','').isalnum()
-        # elif self.ptype == 'ans':
         return True
 
 
