@@ -88,7 +88,11 @@ class Payment(PaymentCommon):
                 'direct_notification_url': self.direct_notification_url,
                 'origin': self.origin
         }
-        query.update(locals())
+        query.update(dict(name=name, address=address, email=email, phone=phone,
+            info1=info1, info2=info2, info3=info3))
+        for key in query.keys():
+            if query[key] is None:
+                del query[key]
         url = '%s?%s' % (SERVICE_URL, urllib.urlencode(query))
         return transaction_id, URL, url
 
