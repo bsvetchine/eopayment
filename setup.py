@@ -37,9 +37,35 @@ class TestCommand(distutils.core.Command):
         t.run(tests)
 
 def get_version():
-    text = file('eopayment/__init__.py').read()
-    m = re.search("__version__ = ['\"](.*)['\"]", text)
-    return m.group(1)
+    import glob
+    import re
+    import os
+
+    version = None
+    for d in glob.glob('*'):
+        if not os.path.isdir(d):
+            continue
+        module_file = os.path.join(d, '__init__.py')
+        if not os.path.exists(module_file):
+            continue
+        for v in re.findall("""__version__ *= *['"](.*)['"]""",
+                open(module_file).read()):
+            assert version is None
+            version = v
+        if version:
+            break
+    assert version is not None
+    if os.path.exists('.git'):
+        import subprocess
+        p = subprocess.Popen(['git','describe','--dirty'],
+                stdout=subprocess.PIPE)
+        result = p.communicate()[0]
+        assert p.returncode == 0, 'git returned non-zero'
+        new_version = result.split()[0]
+        assert not new_version.endswith('-dirty'), 'git workdir is not clean'
+        assert new_version.split('-')[0] == version, '__version__ must match the last git annotated tag'
+        version = new_version.replace('-', '.')
+    return version
 
 distutils.core.setup(name='eopayment',
         version=get_version(),
