@@ -74,6 +74,7 @@ class PaymentCommon(object):
     BANK_ID = '__bank_id'
 
     def __init__(self, options, logger=LOGGER):
+        self.logger = logger
         logger.debug('initializing with options %s' % options)
         for value in self.description['parameters']:
             key = value['name']
