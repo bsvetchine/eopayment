@@ -79,7 +79,7 @@ distutils.core.setup(name='eopayment',
         author_email="info@entrouvert.com",
         maintainer="Benjamin Dauvergne",
         maintainer_email="bdauvergne@entrouvert.com",
-        packages=['eopayment', 'tests'],
+        packages=['eopayment'],
         requires=[
             'pycrypto (>= 2.5)'
         ],
