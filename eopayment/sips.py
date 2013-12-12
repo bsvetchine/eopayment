@@ -103,13 +103,14 @@ class Payment(PaymentCommon):
 
     def __init__(self, options, logger=LOGGER):
         self.options = options
+        self.binpath = self.options.pop(BINPATH)
         self.logger = logger
         self.logger.debug('initializing sips payment class with %s' % options)
 
     def execute(self, executable, params):
         if PATHFILE in self.options:
             params[PATHFILE] = self.options[PATHFILE]
-        executable = os.path.join(self.options.pop(BINPATH), executable)
+        executable = os.path.join(self.binpath, executable)
         args = [executable] + ["%s=%s" % p for p in params.iteritems()]
         self.logger.debug('executing %s' % args)
         result,_ = subprocess.Popen(' '.join(args),
@@ -143,7 +144,6 @@ class Payment(PaymentCommon):
             params['customer_email'] = email
         if next_url:
             params['normal_return_url'] = next_url
-        params.pop('binpath')
         code, error, form = self.execute('request', params)
         if int(code) == 0:
             return params[ORDER_ID], HTML, form
