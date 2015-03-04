@@ -124,7 +124,7 @@ class Payment(PaymentCommon):
     def request(self, amount, name=None, address=None, email=None, phone=None, info1=None,
             info2=None, info3=None, next_url=None, logger=LOGGER, **kwargs):
         logger.debug('requesting spplus payment with montant %s email=%s and \
-next_url=%s' % (montant, email, next_url))
+next_url=%s' % (amount, email, next_url))
         reference = self.transaction_id(20, ALPHANUM, 'spplus', self.siret)
         validite = dt.date.today()+dt.timedelta(days=1)
         validite = validite.strftime('%d/%m/%Y')
@@ -132,7 +132,7 @@ next_url=%s' % (montant, email, next_url))
                 'devise': self.devise,
                 'langue': self.langue,
                 'taxe': self.taxe,
-                'montant': str(Decimal(montant)),
+                'montant': str(Decimal(amount)),
                 REFERENCE: reference,
                 'validite': validite,
                 'version': '1',
