@@ -10,6 +10,7 @@ from glob import glob
 from os.path import splitext, basename, join as pjoin
 import os
 from unittest import TextTestRunner, TestLoader
+import doctest
 
 class TestCommand(distutils.core.Command):
     user_options = [ ]
@@ -32,6 +33,8 @@ class TestCommand(distutils.core.Command):
                 )
 
         tests = TestLoader().loadTestsFromNames(testfiles)
+        import eopayment
+        tests.addTests(doctest.DocTestSuite(eopayment))
         t = TextTestRunner(verbosity = 4)
         t.run(tests)
 

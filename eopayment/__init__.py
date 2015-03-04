@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import logging
-import os.path
 
 from common import URL, HTML
 
@@ -29,16 +28,16 @@ class Payment(object):
        Interface to credit card online payment servers of French banks. The
        only use case supported for now is a unique automatic payment.
 
-           >>> from eopayment import Payment, SPPLUS
-           >>> spplus_options = {
-                   'cle': '58 6d fc 9c 34 91 9b 86 3f fd 64 ' +
-                          '63 c9 13 4a 26 ba 29 74 1e c7 e9 80 79',
-                   'siret': '00000000000001-01',
+           >>> spplus_options = { \
+                   'cle': '58 6d fc 9c 34 91 9b 86 3f fd 64 ' \
+                          '63 c9 13 4a 26 ba 29 74 1e c7 e9 80 79', \
+                   'siret': '00000000000001-01', \
                }
            >>> p = Payment(kind=SPPLUS, options=spplus_options)
-           >>> print p.request('10.00', email='bob@example.com',
-                 next_url='https://my-site.com')
-           ('ZYX0NIFcbZIDuiZfazQp', 1, 'https://www.spplus.net/paiement/init.do?devise=978&validite=23%2F04%2F2011&version=1&reference=ZYX0NIFcbZIDuiZfazQp&montant=10.00&siret=00000000000001-01&langue=FR&taxe=0.00&email=bob%40example.com&hmac=b43dce98f97e5d249ef96f7f31d962f8fa5636ff')
+           >>> transaction_id, kind, data = p.request('10.00', email='bob@example.com', \
+                   next_url='https://my-site.com')
+           >>> print (transaction_id, kind, data) # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE
+           ('...', 1, 'https://www.spplus.net/paiement/init.do?...')
 
        Supported backend of French banks are:
 
@@ -56,13 +55,13 @@ class Payment(object):
        description of the backend list those parameters. The description
        dictionary can be used to generate configuration forms.
 
-           >>> d = eopayment.get_backend(SPPLUS).description
+           >>> d = get_backend(SPPLUS).description
            >>> print d['caption']
-           SSPPlus payment service of French bank Caisse d'epargne
-           >>> print d['parameters'].keys()
-           ('cle','siret')
-           >>> print d['parameters']['cle']['caption']
-           Secret Key
+           SPPlus payment service of French bank Caisse d'epargne
+           >>> print [p['name'] for p in d['parameters']] # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE
+           ['cle', ..., 'moyen']
+           >>> print d['parameters'][0]['caption']
+           Secret key, a 40 digits hexadecimal number
 
     '''
 
@@ -92,15 +91,6 @@ class Payment(object):
 
           kind of the third argument, it can be URL or HTML, the third is the
           corresponding value as string containing HTML or an URL
-
-           >>> transaction_id, kind, data = processor.request('100.00')
-           >>> # asociate transaction_id to invoice
-           >>> invoice.add_transaction_id(transaction_id)
-           >>> if kind == eopayment.URL:
-                   # redirect the user to the URL in data
-               elif kind == eopayment.HTML:
-                   # present the form in HTML to the user
-
         '''
         return self.backend.request(amount, **kwargs)
 
@@ -138,31 +128,3 @@ class Payment(object):
 
         '''
         return self.backend.response(query_string)
-
-if __name__ == '__main__':
-    logging.basicConfig(level=logging.DEBUG)
-    spplus_options = {
-        'cle': '58 6d fc 9c 34 91 9b 86 3f fd 64 \
-63 c9 13 4a 26 ba 29 74 1e c7 e9 80 79',
-        'siret': '00000000000001-01',
-    }
-    p = Payment(kind=SPPLUS, options=spplus_options)
-    print p.request('10.00', email='bob@example.com',
-            next_url='https://my-site.com')
-    systempay_options = {
-        'secrets': {
-            'TEST': '1234567890123456',
-            'PRODUCTION': 'yyy'
-        },
-        'site_id': '00001234',
-        'ctx_mode': 'PRODUCTION'
-    }
-
-    p = Payment(SYSTEMPAY, systempay_options)
-    print p.request('10.00', email='bob@example.com',
-            next_url='https://my-site.com')
-
-    sips_options = {'filepath': '/', 'binpath': os.path.dirname(__file__)}
-    p = Payment(kind=SIPS, options=sips_options)
-    print p.request('10.00', email='bob@example.com',
-            next_url='https://my-site.com')
