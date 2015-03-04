@@ -5,7 +5,7 @@ import logging
 from common import URL, HTML
 
 __all__ = ['Payment', 'URL', 'HTML', '__version__', 'SIPS', 'SYSTEMPAY',
-           'SPPLUS', 'DUMMY', 'get_backend']
+           'SPPLUS', 'DUMMY', 'get_backend', 'get_backends']
 
 __version__ = "0.0.22"
 
@@ -22,6 +22,17 @@ def get_backend(kind):
     module = __import__(kind, globals(), locals(), [])
     return module.Payment
 
+__BACKENDS = [ DUMMY, SIPS, SYSTEMPAY, SPPLUS ]
+
+def get_backends():
+    '''Return a dictionnary mapping existing eopayment backends name to their
+       description.
+
+          >>> get_backends()['dummy'].description['caption']
+          'Dummy payment backend'
+
+    '''
+    return {backend: get_backend(backend) for backend in __BACKENDS}
 
 class Payment(object):
     '''
