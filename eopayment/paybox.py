@@ -209,6 +209,28 @@ class Payment(PaymentCommon):
                 'default': 'GET',
                 'choices': ('GET', 'POST'),
             },
+            {
+                'name': 'payment_type',
+                'caption': _('Payment type'),
+                'choices': (
+                    'CARTE', 'PAYPAL', 'CREDIT', 'NETRESERVE', 'PREPAYEE',
+                    'FINAREF', 'BUYSTER', 'LEETCHI', 'PAYBUTTONS'
+                )
+            },
+            {
+                'name': 'card_type',
+                'caption': 'Card type',
+                'choices': (
+                    'CB', 'VISA', 'EUROCARD_MASTERCARD', 'E_CARD',
+                    'MAESTRO', 'BCMC', 'AMEX', 'DINERS', 'JCB', 'COFINOGA',
+                    'SOFINCO', 'AURORE', 'CDGP', '24H00', 'RIVEGAUCHE',
+                    'PAYPAL', 'UNEURO', '34ONEY', 'NETCFGP', 'SVS',
+                    'KADEOS', 'PSC', 'CSHTKT', 'LASER', 'EMONEO', 'IDEAL',
+                    'ONEYKDO', 'ILLICADO', 'WEXPAY', 'MAXICHEQUE',
+                    'SURCOUF', 'KANGOUROU', 'FNAC', 'CYRILLUS', 'PRINTEMPS',
+                    'CONFORAMA', 'BUYSTER', 'LEETCHI', 'PAYBUTTONS',
+                )
+            }
         ]
     }
 
@@ -247,6 +269,9 @@ class Payment(PaymentCommon):
         if automatic_return_url:
             d['PBX_REPONDRE_A'] = unicode(automatic_return_url)
             d['PBX_RUF1'] = unicode(self.callback_method)
+        if self.payment_type and self.card_type:
+            d['PBX_TYPEPAIEMENT'] = self.payment_type
+            d['PBX_TYPECARTE'] = self.card_type
         d = d.items()
         d = sign(d, self.shared_secret.decode('hex'))
         url = URLS[self.platform]
