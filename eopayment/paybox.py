@@ -203,6 +203,12 @@ class Payment(PaymentCommon):
                 'caption': _('Callback URL'),
                 'deprecated': True,
             },
+            {
+                'name': 'callback_method',
+                'caption': _('Method used for callback URL'),
+                'default': 'GET',
+                'choices': ('GET', 'POST'),
+            },
         ]
     }
 
@@ -240,6 +246,7 @@ class Payment(PaymentCommon):
             automatic_return_url = self.callback
         if automatic_return_url:
             d['PBX_REPONDRE_A'] = unicode(automatic_return_url)
+            d['PBX_RUF1'] = unicode(self.callback_method)
         d = d.items()
         d = sign(d, self.shared_secret.decode('hex'))
         url = URLS[self.platform]
