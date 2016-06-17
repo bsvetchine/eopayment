@@ -247,8 +247,11 @@ class Payment(PaymentCommon):
                 'name': unicode(k),
                 'value': unicode(v),
             })
+        submit_value = kwargs.get('submit_value', u'Envoyer')
+        submit_css = kwargs.get('submit_css')
         form = Form(url, 'POST', fields, submit_name=None,
-                    submit_value=u'Envoyer', encoding='utf-8')
+                    submit_value=submit_value, submit_css=submit_css,
+                    encoding='utf-8')
         return transaction_id, FORM, form
 
     def response(self, query_string, callback=False, **kwargs):

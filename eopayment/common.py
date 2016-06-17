@@ -121,18 +121,21 @@ class PaymentCommon(object):
 
 class Form(object):
     def __init__(self, url, method, fields, encoding='utf-8',
-                 submit_name='Submit', submit_value='Submit'):
+                 submit_name='Submit', submit_value='Submit',
+                 submit_css=None):
         self.url = url
         self.method = method
         self.fields = fields
         self.encoding = encoding
         self.submit_name = submit_name
         self.submit_value = submit_value
+        self.submit_css = submit_css
 
     def __repr__(self):
         s = '%s(' % self.__class__.__name__
         kwargs = []
-        for k in ('url', 'method', 'fields', 'encoding', 'submit_name', 'submit_value'):
+        for k in ('url', 'method', 'fields', 'encoding', 'submit_name', 'submit_value',
+                  'submit_css'):
             kwargs.append('%s=%r' % (k, getattr(self, k)))
         s += ', '.join(kwargs)
         s += ')'
@@ -152,6 +155,8 @@ class Form(object):
             s += ' name="%s"' % self.escape(self.submit_name)
         if self.submit_value:
             s += ' value="%s"' % self.escape(self.submit_value)
+        if self.submit_css:
+            s += ' class="%s"' % self.escape(self.submit_css)
         s += ' />'
         s += '\n</form>'
         return s
