@@ -337,7 +337,10 @@ class Payment(PaymentCommon):
                     'name': force_text(field_name),
                     'value': force_text(field_value),
                 }
-                for field_name, field_value in fields.iteritems()])
+                for field_name, field_value in fields.iteritems()],
+            submit_value=kwargs.get('submit_value', 'Submit'),
+            submit_css=kwargs.get('submit_css')
+        )
         return transaction_id, FORM, form
 
     def response(self, query_string, **kwargs):
