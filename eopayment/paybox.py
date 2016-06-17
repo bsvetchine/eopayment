@@ -230,6 +230,10 @@ class Payment(PaymentCommon):
                     'SURCOUF', 'KANGOUROU', 'FNAC', 'CYRILLUS', 'PRINTEMPS',
                     'CONFORAMA', 'BUYSTER', 'LEETCHI', 'PAYBUTTONS',
                 )
+            },
+            {
+                'name': 'return_url',
+                'caption': _('Return URL after transaction')
             }
         ]
     }
@@ -272,6 +276,10 @@ class Payment(PaymentCommon):
         if self.payment_type and self.card_type:
             d['PBX_TYPEPAIEMENT'] = self.payment_type
             d['PBX_TYPECARTE'] = self.card_type
+        if self.return_url:
+            for key in [
+                    'PBX_EFFECTUE', 'PBX_REFUSE', 'PBX_ANNULE', 'PBX_ATTENTE']:
+                d[key] = self.return_url
         d = d.items()
         d = sign(d, self.shared_secret.decode('hex'))
         url = URLS[self.platform]
