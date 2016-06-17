@@ -221,7 +221,10 @@ class Payment(PaymentCommon):
         if orderid:
             d['PBX_CMD'] = orderid + ORDERID_TRANSACTION_SEPARATOR + d['PBX_CMD']
         d['PBX_PORTEUR'] = unicode(email)
-        d['PBX_RETOUR'] = 'montant:M;reference:R;code_autorisation:A;erreur:E;signature:K'
+        d['PBX_RETOUR'] = (
+            'montant:M;reference:R;code_autorisation:A;erreur:E;signature:K;'
+            'date:W;heure:Q'
+        )
         d['PBX_HASH'] = 'SHA512'
         d['PBX_TIME'] = kwargs.get('time') or (unicode(datetime.datetime.utcnow().isoformat('T')).split('.')[0]+'+00:00')
         d['PBX_ARCHIVAGE'] = transaction_id
@@ -269,7 +272,7 @@ class Payment(PaymentCommon):
                     data.append('%s=%s' % (key, urllib.quote(d[key][0])))
             else:
                 for key, value in urlparse.parse_qsl(query_string, True, True):
-                    if key == 'signature':
+                    if key == 'heure':
                         break
                     data.append('%s=%s' % (key, urllib.quote(value)))
             data = '&'.join(data)
