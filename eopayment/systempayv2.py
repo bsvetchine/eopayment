@@ -89,6 +89,8 @@ PARAMETERS = [
     Parameter('vads_cust_email', 'an@', 15, max_length=127),
     Parameter('vads_cust_id', 'an', 16, max_length=63),
     Parameter('vads_cust_name', 'ans', 18, max_length=127),
+    Parameter('vads_cust_first_name', 'ans', 18, max_length=127),
+    Parameter('vads_cust_last_name', 'ans', 18, max_length=127),
     Parameter('vads_cust_phone', 'an', 23, max_length=63),
     Parameter('vads_cust_title', 'an', 17, max_length=63),
     Parameter('vads_cust_city', 'an', 21, max_length=63),
@@ -105,9 +107,9 @@ PARAMETERS = [
               description=_(u"Complément d'information 2")),
     Parameter('vads_order_info3', 'an', 14, max_length=255,
               description=_(u"Complément d'information 3")),
-    Parameter('vads_page_action', None, 46, needed=True, default='PAYMENT',
-              choices=('PAYMENT',)),
-    Parameter('vads_payment_cards', 'an;', 8, max_length=127, default='',
+    Parameter('vads_page_action', 'an_', 46, needed=True, default='PAYMENT',
+              choices=('PAYMENT', 'REGISTER_PAY', )),
+    Parameter('vads_payment_cards', 'an-;', 8, max_length=127, default='',
               description=_(u'Liste des cartes de paiement acceptées'),
               help_text=_(u'vide ou des valeurs sépareés par un point-virgule '
                           'parmi AMEX, AURORE-MULTI, BUYSTER, CB, COFINOGA, '
