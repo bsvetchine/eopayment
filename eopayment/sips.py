@@ -98,7 +98,8 @@ class Payment(PaymentCommon):
                 'name': 'merchand_id',
                 },
                 {'name': 'merchant_country', },
-                {'name': 'currency_code', }
+                {'name': 'currency_code', },
+                {'name': 'normal_return_url', }
             ],
     }
 
@@ -106,6 +107,7 @@ class Payment(PaymentCommon):
         super(Payment, self).__init__(options, logger=logger)
         self.options = options
         self.binpath = self.options.pop(BINPATH)
+        self.normal_return_url = None
         self.logger.debug('initializing sips payment class with %s' % options)
 
     def execute(self, executable, params):
