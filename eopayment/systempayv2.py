@@ -412,11 +412,12 @@ class Payment(PaymentCommon):
         ordered_keys = sorted(
             [key for key in fields.keys() if key.startswith('vads_')])
         self.logger.debug('ordered keys %s' % ordered_keys)
-        ordered_fields = [fields[key] for key in ordered_keys]
+        ordered_fields = [force_byte(fields[key]) for key in ordered_keys]
         secret = getattr(self, 'secret_%s' % fields['vads_ctx_mode'].lower())
         signed_data = '+'.join(ordered_fields)
-        signed_data = '%s+%s' % (signed_data, secret)
-        self.logger.debug(u'generating signature on «%s»' % signed_data)
+        signed_data = '%s+%s' % (signed_data, force_byte(secret))
+        self.logger.debug(
+            u'generating signature on «%s»' % force_text(signed_data))
         sign = hashlib.sha1(force_byte(signed_data)).hexdigest()
         self.logger.debug(u'signature «%s»' % sign)
         return sign
