@@ -9,7 +9,7 @@ import warnings
 from gettext import gettext as _
 
 from common import (PaymentCommon, PaymentResponse, PAID, ERROR, FORM, Form,
-                    ResponseError, force_text)
+                    ResponseError, force_text, force_byte)
 from cb import CB_RESPONSE_CODES
 
 __all__ = ['Payment']
@@ -54,15 +54,16 @@ class Parameter:
         self.help_text = help_text
 
     def check_value(self, value):
-        if self.length and len(str(value)) != self.length:
+        value = force_byte(value)
+        if self.length and len(value) != self.length:
             return False
-        if self.max_length and len(str(value)) > self.max_length:
+        if self.max_length and len(value) > self.max_length:
             return False
-        if self.choices and str(value) not in self.choices:
+        if self.choices and value not in self.choices:
             return False
         if value == '':
             return True
-        value = str(value).replace('.', '')
+        value = value.replace('.', '')
         if self.ptype == 'n':
             return value.isdigit()
         elif self.ptype == 'an':
@@ -411,11 +412,11 @@ class Payment(PaymentCommon):
         ordered_keys = sorted(
             [key for key in fields.keys() if key.startswith('vads_')])
         self.logger.debug('ordered keys %s' % ordered_keys)
-        ordered_fields = [str(fields[key]) for key in ordered_keys]
+        ordered_fields = [fields[key] for key in ordered_keys]
         secret = getattr(self, 'secret_%s' % fields['vads_ctx_mode'].lower())
         signed_data = '+'.join(ordered_fields)
         signed_data = '%s+%s' % (signed_data, secret)
         self.logger.debug(u'generating signature on «%s»' % signed_data)
-        sign = hashlib.sha1(signed_data).hexdigest()
+        sign = hashlib.sha1(force_byte(signed_data)).hexdigest()
         self.logger.debug(u'signature «%s»' % sign)
         return sign

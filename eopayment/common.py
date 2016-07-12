@@ -36,6 +36,15 @@ def force_text(s, encoding='utf-8'):
         return unicode(s)
 
 
+def force_byte(s, encoding='utf-8'):
+    if isinstance(s, str):
+        return s
+    try:
+        return s.encode(encoding)
+    except UnicodeEncodeError:
+        return s.encode()
+
+
 class ResponseError(Exception):
     pass
 
