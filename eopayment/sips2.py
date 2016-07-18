@@ -180,7 +180,7 @@ class Payment(PaymentCommon):
                     'name': 'InterfaceVersion',
                     'value': self.INTERFACE_VERSION,
                 },
-            ])
+            ], **kwargs)
         self.logger.debug('emitting request %r', data)
         return transaction_id, FORM, form
 
