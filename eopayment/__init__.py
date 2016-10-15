@@ -67,11 +67,11 @@ class Payment(object):
        dictionary can be used to generate configuration forms.
 
            >>> d = get_backend(SPPLUS).description
-           >>> print d['caption']
+           >>> print (d['caption'])
            SPPlus payment service of French bank Caisse d'epargne
-           >>> print [p['name'] for p in d['parameters']] # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE
+           >>> print ([p['name']) for p in d['parameters']] # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE
            ['cle', ..., 'moyen']
-           >>> print d['parameters'][0]['caption']
+           >>> print (d['parameters'][0]['caption'])
            Secret key, a 40 digits hexadecimal number
 
     '''

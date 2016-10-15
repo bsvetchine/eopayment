@@ -233,8 +233,8 @@ if __name__ == '__main__':
 
     ntkey = '58 6d fc 9c 34 91 9b 86 3f fd 64 63 c9 13 4a 26 ba 29 74 1e c7 e9 80 79'
     if len(sys.argv) == 2:
-        print sign_url_paiement(ntkey, sys.argv[1])
-        print sign_ntkey_query(ntkey, sys.argv[1])
+        print (sign_url_paiement(ntkey, sys.argv[1]))
+        print (sign_ntkey_query(ntkey, sys.argv[1]))
     elif len(sys.argv) > 2:
-        print sign_url_paiement(sys.argv[1], sys.argv[2])
-        print sign_ntkey_query(sys.argv[1], sys.argv[2])
+        print (sign_url_paiement(sys.argv[1], sys.argv[2]))
+        print (sign_ntkey_query(sys.argv[1], sys.argv[2]))

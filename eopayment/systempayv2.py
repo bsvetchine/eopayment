@@ -200,7 +200,7 @@ class Payment(PaymentCommon):
 
             >>> gw =Payment(dict(secret_test='xxx', secret_production='yyyy',
                                  site_id=123, ctx_mode='PRODUCTION'))
-            >>> print gw.request(100)
+            >>> print (gw.request(100))
             ('20120525093304_188620',
             'https://paiement.systempay.fr/vads-payment/?vads_url_return=http%3A%2F%2Furl.de.retour%2Fretour.php&vads_cust_country=FR&vads_site_id=&vads_payment_config=SINGLE&vads_trans_id=188620&vads_action_mode=INTERACTIVE&vads_contrib=eopayment&vads_page_action=PAYMENT&vads_trans_date=20120525093304&vads_ctx_mode=TEST&vads_validation_mode=&vads_version=V2&vads_payment_cards=&signature=5d412498ab523627ec5730a09118f75afa602af5&vads_language=fr&vads_capture_delay=&vads_currency=978&vads_amount=100&vads_return_mode=NONE',
             {'vads_url_return': 'http://url.de.retour/retour.php',

@@ -540,8 +540,8 @@ class Payment(PaymentCommon):
             signature = params.get('SHASIGN')
             expected_signature = self.sha_sign_out(params)
             signed = signature == expected_signature
-            print 'signed', signature
-            print 'expected', expected_signature
+            print ('signed', signature)
+            print ('expected', expected_signature)
         if status == '1':
             result = CANCELLED
         elif status == '2':

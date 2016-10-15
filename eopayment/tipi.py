@@ -183,11 +183,11 @@ class Payment(PaymentCommon):
 
 if __name__ == '__main__':
     p = Payment({'numcli': '12345'})
-    print p.request(amount=Decimal('123.12'),
+    print (p.request(amount=Decimal('123.12'),
             exer=9999,
             refdet=999900000000999999,
             objet='tout a fait',
             email='info@entrouvert.com',
             urlcl='http://example.com/tipi/test',
-            saisie='T')
-    print p.response('objet=tout+a+fait&montant=12312&saisie=T&mel=info%40entrouvert.com&numcli=12345&exer=9999&refdet=999900000000999999&resultrans=P')
+            saisie='T'))
+    print (p.response('objet=tout+a+fait&montant=12312&saisie=T&mel=info%40entrouvert.com&numcli=12345&exer=9999&refdet=999900000000999999&resultrans=P'))

@@ -46,7 +46,7 @@ class TestCommand(distutils.core.Command):
 class eo_sdist(sdist):
 
     def run(self):
-        print "creating VERSION file"
+        print ("creating VERSION file")
         if os.path.exists('VERSION'):
             os.remove('VERSION')
         version = get_version()
@@ -54,7 +54,7 @@ class eo_sdist(sdist):
         version_file.write(version)
         version_file.close()
         sdist.run(self)
-        print "removing VERSION file"
+        print ("removing VERSION file")
         if os.path.exists('VERSION'):
             os.remove('VERSION')
 
