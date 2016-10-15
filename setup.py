@@ -83,7 +83,7 @@ setuptools.setup(
     license='GPLv3 or later',
     description='Common API to use all French online payment credit card '
     'processing services',
-    long_description=file(
+    long_description=open(
         os.path.join(
             os.path.dirname(__file__),
             'README.txt')).read(),
