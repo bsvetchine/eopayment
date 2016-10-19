@@ -9,7 +9,7 @@ from gettext import gettext as _
 import logging
 import warnings
 
-from systempayv2 import isonow
+from .systempayv2 import isonow
 
 __all__ = ['Payment']
 

@@ -13,7 +13,7 @@ import re
 import warnings
 
 import Crypto.Cipher.DES
-from common import (PaymentCommon, URL, PaymentResponse, RECEIVED, ACCEPTED,
+from .common import (PaymentCommon, URL, PaymentResponse, RECEIVED, ACCEPTED,
         PAID, ERROR, ResponseError)
 
 def N_(message): return message

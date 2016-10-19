@@ -8,7 +8,7 @@ import hashlib
 from gettext import gettext as _
 import warnings
 
-from common import (PaymentCommon, FORM, Form, PaymentResponse, PAID, ERROR,
+from .common import (PaymentCommon, FORM, Form, PaymentResponse, PAID, ERROR,
         CANCELED, ResponseError)
 
 __all__ = ['Payment']

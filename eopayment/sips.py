@@ -9,8 +9,8 @@ import os.path
 import uuid
 import warnings
 
-from common import PaymentCommon, HTML, PaymentResponse, ResponseError
-from cb import CB_RESPONSE_CODES
+from .common import PaymentCommon, HTML, PaymentResponse, ResponseError
+from .cb import CB_RESPONSE_CODES
 
 '''
 Payment backend module for the ATOS/SIPS system used by many Frenck banks.

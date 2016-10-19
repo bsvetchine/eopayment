@@ -16,7 +16,7 @@ from gettext import gettext as _
 import string
 import warnings
 
-from common import (PaymentCommon, PaymentResponse, FORM, PAID, ERROR, Form,
+from .common import (PaymentCommon, PaymentResponse, FORM, PAID, ERROR, Form,
         ORDERID_TRANSACTION_SEPARATOR, ResponseError)
 
 __all__ = ['sign', 'Payment']

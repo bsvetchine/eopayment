@@ -7,9 +7,9 @@ from six.moves.urllib.parse import urlparse
 import warnings
 from gettext import gettext as _
 
-from common import (PaymentCommon, PaymentResponse, PAID, ERROR, FORM, Form,
-                    ResponseError, force_text, force_byte)
-from cb import CB_RESPONSE_CODES
+from .common import (PaymentCommon, PaymentResponse, PAID, ERROR, FORM, Form,
+                     ResponseError, force_text, force_byte)
+from .cb import CB_RESPONSE_CODES
 
 __all__ = ['Payment']
 
