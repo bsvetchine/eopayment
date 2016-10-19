@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from common import (URL, HTML, FORM, RECEIVED, ACCEPTED, PAID, DENIED,
+from .common import (URL, HTML, FORM, RECEIVED, ACCEPTED, PAID, DENIED,
                     CANCELED, CANCELLED, ERROR, ResponseError)
 
 __all__ = ['Payment', 'URL', 'HTML', 'FORM', 'SIPS',
