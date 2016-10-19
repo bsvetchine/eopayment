@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import urlparse
+from six.moves.urllib.parse import urlparse
 import string
 import subprocess
 from decimal import Decimal

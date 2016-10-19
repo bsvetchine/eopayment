@@ -4,7 +4,7 @@ import binascii
 from gettext import gettext as _
 import hmac
 import hashlib
-import urlparse
+from six.moves.urllib.parse import urlparse
 import urllib
 import string
 import datetime as dt

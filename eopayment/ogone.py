@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 import hashlib
 import string
-import urlparse
 from decimal import Decimal, ROUND_HALF_UP
 
-from common import (PaymentCommon, PaymentResponse, FORM, CANCELLED, PAID,
+from six.moves.urllib.parse import urlparse
+
+from .common import (PaymentCommon, PaymentResponse, FORM, CANCELLED, PAID,
         ERROR, Form, DENIED, ACCEPTED, ORDERID_TRANSACTION_SEPARATOR,
         ResponseError)
 def N_(message): return message

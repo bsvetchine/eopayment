@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import collections
-import urlparse
+from six.moves.urllib.parse import urlparse
 import string
 from decimal import Decimal
 import uuid

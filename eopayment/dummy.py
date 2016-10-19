@@ -8,7 +8,7 @@ def N_(message): return message
 try:
     from cgi import parse_qs
 except ImportError:
-    from urlparse import parse_qs
+    from six.moves.urllib.parse import parse_qs
 
 from common import PaymentCommon, URL, PaymentResponse, PAID, ERROR, ResponseError
 

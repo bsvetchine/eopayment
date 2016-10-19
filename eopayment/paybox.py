@@ -9,7 +9,7 @@ from decimal import Decimal, ROUND_DOWN
 from Crypto.Signature import PKCS1_v1_5
 from Crypto.PublicKey import RSA
 from Crypto.Hash import SHA
-import urlparse
+from six.moves.urllib.parse import urlparse
 import urllib
 import base64
 from gettext import gettext as _

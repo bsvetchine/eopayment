@@ -2,9 +2,8 @@
 
 import datetime as dt
 import hashlib
-import logging
 import string
-import urlparse
+from six.moves.urllib.parse import urlparse
 import warnings
 from gettext import gettext as _
 

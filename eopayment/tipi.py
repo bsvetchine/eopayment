@@ -4,7 +4,7 @@ from decimal import Decimal, ROUND_DOWN
 from common import (PaymentCommon, PaymentResponse, URL, PAID, DENIED,
         CANCELLED, ERROR, ResponseError)
 from urllib import urlencode
-from urlparse import parse_qs
+from six.moves.urllib.parse import parse_qs
 from gettext import gettext as _
 import logging
 import warnings
