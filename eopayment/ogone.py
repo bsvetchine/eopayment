@@ -512,7 +512,7 @@ class Payment(PaymentCommon):
             params['EMAIL'] = email
         if description:
             params['COM'] = description
-        for key, value in kwargs.iteritems():
+        for key, value in kwargs.items():
             params[key.upper()] = value
         # uniformize all values to UTF-8 string
         for key in params:

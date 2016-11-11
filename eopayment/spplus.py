@@ -178,7 +178,7 @@ class Payment(PaymentCommon):
         form = urlparse.parse_qs(query_string)
         if not set(form) >= set([REFERENCE, ETAT, REFSFP]):
             raise ResponseError()
-        for key, value in form.iteritems():
+        for key, value in form.items():
             form[key] = value[0]
         logger.debug('received query_string %s' % query_string)
         logger.debug('parsed as %s' % form)

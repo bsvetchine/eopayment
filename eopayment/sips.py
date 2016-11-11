@@ -114,7 +114,7 @@ class Payment(PaymentCommon):
         if PATHFILE in self.options:
             params[PATHFILE] = self.options[PATHFILE]
         executable = os.path.join(self.binpath, executable)
-        args = [executable] + ["%s=%s" % p for p in params.iteritems()]
+        args = [executable] + ["%s=%s" % p for p in params.items()]
         self.logger.debug('executing %s' % args)
         result,_ = subprocess.Popen(' '.join(args),
                 stdout=subprocess.PIPE, shell=True).communicate()

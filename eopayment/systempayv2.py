@@ -173,7 +173,7 @@ EXTRA_RESULT_MAP = {
 
 def add_vads(kwargs):
     new_vargs = {}
-    for k, v in kwargs.iteritems():
+    for k, v in kwargs.items():
         if k.startswith('vads_'):
             new_vargs[k] = v
         else:
@@ -341,7 +341,7 @@ class Payment(PaymentCommon):
                     'name': force_text(field_name),
                     'value': force_text(field_value),
                 }
-                for field_name, field_value in fields.iteritems()],
+                for field_name, field_value in fields.items()],
             submit_value=kwargs.get('submit_value', 'Submit'),
             submit_css=kwargs.get('submit_css')
         )
@@ -351,7 +351,7 @@ class Payment(PaymentCommon):
         fields = urlparse.parse_qs(query_string, True)
         if not set(fields) >= set([SIGNATURE, VADS_CTX_MODE, VADS_AUTH_RESULT]):
             raise ResponseError()
-        for key, value in fields.iteritems():
+        for key, value in fields.items():
             fields[key] = value[0]
         copy = fields.copy()
         bank_status = []

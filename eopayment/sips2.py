@@ -122,7 +122,7 @@ class Payment(PaymentCommon):
 
     def encode_data(self, data):
         return u'|'.join(u'%s=%s' % (unicode(key), unicode(value))
-                         for key, value in data.iteritems())
+                         for key, value in data.items())
 
     def seal_data(self, data):
         s = self.encode_data(data)

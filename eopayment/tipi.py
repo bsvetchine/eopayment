@@ -146,7 +146,7 @@ class Payment(PaymentCommon):
         fields = parse_qs(query_string, True)
         if not set(fields) >= set(['refdet', 'resultrans']):
             raise ResponseError()
-        for key, value in fields.iteritems():
+        for key, value in fields.items():
             fields[key] = value[0]
         refdet = fields.get('refdet')
         if refdet is None:
